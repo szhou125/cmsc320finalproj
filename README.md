@@ -322,7 +322,7 @@ From the first plot we can conclude that the range of scores within the 2nd and 
 
 ## **Part 4) Hypothesis Testing**
 
-Now that we have visualized our data sets containing reddit post information and reddit comment information, we can conduct some basic hypothesis testing to analyze the relationship between different sets of variables. In the following code we demonstrate linear regression with ordinary least squares to give us more detail about the relationships we looked at above. We use functions from statsmodels to acheive this. More information can be found here: https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
+Now that we have visualized our data sets containing reddit post information and reddit comment information, we can conduct some basic hypothesis testing to analyze the relationship between different sets of variables. In the following code we demonstrate linear regression with ordinary least squares to give us more detail about the relationships we looked at above. We use functions from statsmodels to acheive this. More information about these functions can be found here: https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
 
 
 ### **Part 4a) OLS: Comment Author Score vs. Comment Score**
