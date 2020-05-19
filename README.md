@@ -1,6 +1,6 @@
 
 # **Tutorial: Data Analysis on Reddit**
-https://reddit.com is a popular social media website that hosts a collection of forums ("subreddits") where users aggregate certain types of content (ex: /r/catpics) or discuss certain topics (ex: /r/politics). NTthere is a wealth of information to be gleaned from social, scientific, anthropological and other perspectives in reaping and analyzing the data on reddit, and it can be quite fun to do so as well. In this tutorial we provide a simple, extensible pipeline that guides the user through collecting, sanitizing, analyzing, and presenting (through graphs and summary statistics) that kind of data; go through it yourself and once you learn a few simple techniques, you'll be able to adapt these methods to gather whatever kind of reddit data you want and analyze it in a variety of ways for fun and profit.
+https://reddit.com is a popular social media website that hosts a collection of forums ("subreddits") where users aggregate certain types of content (ex: /r/catpics) or discuss certain topics (ex: /r/politics). There is a wealth of information to be gleaned from social, scientific, anthropological and other perspectives in reaping and analyzing the data on reddit, and it can be quite fun to do so as well. In this tutorial we provide a simple, extensible pipeline that guides the user through collecting, sanitizing, analyzing, and presenting (through graphs and summary statistics) that kind of data; go through it yourself and once you learn a few simple techniques, you'll be able to adapt these methods to gather whatever kind of reddit data you want and analyze it in a variety of ways for fun and profit.
 
 ## **Part 1) Importing the relevant libraries**
 For this project we will need a few different packages:
@@ -10,7 +10,7 @@ For this project we will need a few different packages:
 *   **pandas**: a data analysis and manipulation library
 *   **matplotlib**: a pair of robust plotting libraries
 *   **plotnine**: library to compose plots
-*   **plotnine**: machine learning library
+*   **sklearn**: machine learning library
 *   **statsmodels**: a library that provides tools for statistical analysis
 *   **praw**: a data scraping library made to collect posts, comments, and other information from reddit.com
 *   **tqdm**: a simple library that adds loading bars for loops, optional
