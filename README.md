@@ -330,8 +330,6 @@ Now that we have visualized our data sets containing reddit post information and
 Going back to the question we looked at above: 
 *Question: For "representative" comments in the comments dataset, is there any correlation between the score a user got with their comment and their overall score on reddit as a whole?* 
 
-### Comment Author Overall Link Score vs. Comment Score
-
 We can first look at the relationship between comment score and comment author overall link score, then comment score and comment author overall comment score.
 
 
@@ -406,8 +404,6 @@ link_upvote_corr.summary()
 When we fit a linear regression model of author link karma vs. upvotes, and test for a relationship between upvotes and author link karma, we do not reject the null hypothesis of no relationship because we have a p value of 0.425 which is way above our significance level of 0.05. Our model says that for each upvote, there is a 1086 decrease in author link karma, but again, this is not statistically significant.
 
 This isn't what one would expect, as you would probably expect that that the more upvotes you have on a comment, the higher link karma you have. However, we suspect the reason why it's such a large negative number is because some users' link karma is so high, it skewed the data. Looking at our scatter plot before, we see that there are a couple points that are above a million. When the comment ranges from -10 to 50, these outlier points can make a big difference on the slope of the line.
-
-### Comment Author Overall Comment Score vs. Comment Score
 
 Now let's look at the relationship between comment score and comment author overall comment score.
 
@@ -491,8 +487,6 @@ This is what one would expect, as you would probably expect that that the more u
 
 In addition, given what we saw with posts with awards vs without awards, we saw that the distribution of points was different for the two. With this information, it makes sense to check for an interaction term between number of upvotes and if their post recieved an award (for author comment/link karma).
 
-### Author Comment Karma
-
 First let's take a look at this for author comment karma.
 
 
@@ -572,8 +566,6 @@ link_upvote_corr_inter.summary()
 ### Analysis
 
 For author comment karma, when we check for an interaction term, we do not reject the null hypothedis for no relationship because we get a p value of 0.902 and 0.788, respectively, for the posts without and with awards. Our model says that for posts without awards, for every upvote, there is a 0.207 decrease in the author's comment karma, and for posts with awards, for every upvote, there is an 0.302 increase in the author's comment karma. This makes sense as if a post has an award, the author of the comment is probably good at writing comments, but again, these are not statistically significant results. 
-
-### Author Link Karma
 
 Now, let's take a look at this for author link karma.
 
