@@ -18,10 +18,6 @@ For this project we will need a few different packages:
 
 
 ```python
-# To install praw:
-# import sys
-# !{sys.executable} -m pip install praw
-
 import numpy as np
 import pandas as pd
 from plotnine import *
@@ -326,15 +322,17 @@ From the first plot we can conclude that the range of scores within the 2nd and 
 
 ## **Part 4) Hypothesis Testing**
 
-Now that we have visualized our data sets containing reddit post information and reddit comment information, we can conduct some basic hypothesis testing to analyze the relationship between different sets of variables. In the following code we demonstrate linear regression with ordinary least squares to give us more detail about the relationships we looked at above.
+Now that we have visualized our data sets containing reddit post information and reddit comment information, we can conduct some basic hypothesis testing to analyze the relationship between different sets of variables. In the following code we demonstrate linear regression with ordinary least squares to give us more detail about the relationships we looked at above. We use functions from statsmodels to acheive this. More information can be found here: https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
 
 
-### **Part 4a) OLS: Comment Author Score vs. Comment  Score**
+### **Part 4a) OLS: Comment Author Score vs. Comment Score**
 
 Going back to the question we looked at above: 
 *Question: For "representative" comments in the comments dataset, is there any correlation between the score a user got with their comment and their overall score on reddit as a whole?* 
 
-We look at the relationship between comment score and comment author overall link score, as well as comment score and comment author overall comment score.
+### Comment Author Overall Link Score vs. Comment Score
+
+We can first look at the relationship between comment score and comment author overall link score, then comment score and comment author overall comment score.
 
 
 ```python
@@ -408,6 +406,10 @@ link_upvote_corr.summary()
 When we fit a linear regression model of author link karma vs. upvotes, and test for a relationship between upvotes and author link karma, we do not reject the null hypothesis of no relationship because we have a p value of 0.425 which is way above our significance level of 0.05. Our model says that for each upvote, there is a 1086 decrease in author link karma, but again, this is not statistically significant.
 
 This isn't what one would expect, as you would probably expect that that the more upvotes you have on a comment, the higher link karma you have. However, we suspect the reason why it's such a large negative number is because some users' link karma is so high, it skewed the data. Looking at our scatter plot before, we see that there are a couple points that are above a million. When the comment ranges from -10 to 50, these outlier points can make a big difference on the slope of the line.
+
+### Comment Author Overall Comment Score vs. Comment Score
+
+Now let's look at the relationship between comment score and comment author overall comment score.
 
 
 ```python
@@ -489,6 +491,10 @@ This is what one would expect, as you would probably expect that that the more u
 
 In addition, given what we saw with posts with awards vs without awards, we saw that the distribution of points was different for the two. With this information, it makes sense to check for an interaction term between number of upvotes and if their post recieved an award (for author comment/link karma).
 
+### Author Comment Karma
+
+First let's take a look at this for author comment karma.
+
 
 
 ```python
@@ -566,6 +572,11 @@ link_upvote_corr_inter.summary()
 ### Analysis
 
 For author comment karma, when we check for an interaction term, we do not reject the null hypothedis for no relationship because we get a p value of 0.902 and 0.788, respectively, for the posts without and with awards. Our model says that for posts without awards, for every upvote, there is a 0.207 decrease in the author's comment karma, and for posts with awards, for every upvote, there is an 0.302 increase in the author's comment karma. This makes sense as if a post has an award, the author of the comment is probably good at writing comments, but again, these are not statistically significant results. 
+
+### Author Link Karma
+
+Now, let's take a look at this for author link karma.
+
 
 
 ```python
@@ -645,7 +656,7 @@ link_upvote_corr_inter.summary()
 For author link karma, when we check for an interaction term, we do not reject the null hypothedis for no relationship because we get a p value of 0.781 and 0.703, respectively, for posts without and with awards. Our model says that for posts without awards, for every upvote, there is a 3.406 decrease in the author's link karma, and for posts with awards, for every upvote, there is an 8.674 decrease in the author's link karma. This doesn't make a lot of sense as you would expect authors of posts with awards to have more karma, but the outliers could be skewing the data again. But again, these are not statistically significant results. 
 
 
-### **Part 4b) OLS: Upvotes vs. Comment Author Score, Author Link Karma, Comments, Crossposts**
+### **Part 4c) OLS: Upvotes vs. Comment Author Score, Author Link Karma, Comments, Crossposts**
 
 Now that we've attempted to predict the author's credentials, let's focus on the upvotes. We want to see what influences the number of upvotes a post gets (in the top 100 posts). 
 
@@ -748,7 +759,7 @@ posts_df['y'] = posts_df['y'].where(posts_df['gilded'] == False, 0)
 y = posts_df['y'].to_numpy()
 ```
 
-We chose to use a random forest classifier because they tend to be pretty reliable and robust. They try to improve prediction performance and reduce instability by averaging multiple decision trees. We use 100 trees and 10 fold cross validation to check our error rate. We also extract ROC data to get AUROC data for a visual for our error rate. 
+We chose to use a random forest classifier because they tend to be pretty reliable and robust. They try to improve prediction performance and reduce instability by averaging multiple decision trees. We use 100 trees and 10 fold cross validation to check our error rate. We also extract ROC data to get AUROC data for a visual for our error rate. You can learn more about random forest classifiers here: https://towardsdatascience.com/understanding-random-forest-58381e0602d2
 
 The following code is adapted from this sklearn tutorial: https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py. Read more to find out additional information and use the sklearn docs to get details on using more models.
 
@@ -935,7 +946,7 @@ mean_curve_df = curve_df.groupby(['model','fpr']).agg({'tpr': 'mean'}).reset_ind
 
 
 ### Analysis
-We want to have a more log shaped curve for the ROC curve, but we have a more linear curve, indicating that our model was not very accurate in predicting if a post recieved an award. 
+We want to have a more log shaped curve for the ROC curve, but we have a more linear curve, indicating that our model was not very accurate in predicting if a post recieved an award. You can learn more about the ROC curve here: https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5
 
 
 ```python
